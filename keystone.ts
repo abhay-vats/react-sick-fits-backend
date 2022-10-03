@@ -10,6 +10,7 @@ import 'dotenv/config';
 // Local dependencies
 import { User } from './schemas/User';
 import { Product } from './schemas/Product';
+import { ProductImage } from './schemas/ProductImage';
 
 const databaseUrl = process.env.DATABASE_URL || 'mongodb://localhost/sick-fits';
 
@@ -29,7 +30,7 @@ export default withAuth(
   config({
     server: { cors: { origin: [process.env.FRONTEND_URL], credentials: true } },
     db: { adapter: 'mongoose', url: databaseUrl },
-    lists: createSchema({ User, Product }),
+    lists: createSchema({ User, Product, ProductImage }),
     ui: { isAccessAllowed: ({ session }) => !!session?.data },
     session: withItemData(statelessSessions(sessionConfig), { User: 'id' }),
   })
